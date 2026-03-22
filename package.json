@@ -1,0 +1,13 @@
+{
+  "name": "forms",
+  "version": "1.0.0",
+  "description": "Forms Project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+},
+  "keywords": [],
+  "author": "Elliot Pazmino",
+  "license": "ISC",
+  "type": "commonjs"
+}
