@@ -4,7 +4,7 @@
   "description": "Forms Project",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "server.js"
 },
   "keywords": [],
   "author": "Elliot Pazmino",
