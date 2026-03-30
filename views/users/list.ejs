@@ -10,9 +10,15 @@
     <ul>
     <%  
         let users = locals.users;
-        for (user of users){ %>
-            <li><%= user.firstName %></li>
-
+        for (user of users){
+            let id = users.indexOf(user);
+    %>
+            <li><a href="/users/<%= id %>">
+                <%= user.firstName %>
+                <%= user.lastName %></a>
+                <%= user.age %>
+                <%= user.gender %>
+            </li>
     <% } %>
     </ul>
 </body>

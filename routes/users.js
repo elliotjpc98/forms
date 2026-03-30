@@ -6,10 +6,13 @@ router.route('/').get((req, res)=>{
     res.send('User List');
 }).post((req, res) =>{
     const firstName = req.body.firstName;
-    const isValid = firstName !=="";
+    const lastName = req.body.lastName;
+    const age = req.body.age;
+    const gender = req.body.gender;
+    const isValid = firstName !=="" && lastName !=="" && age !=="" && gender !=="";
     if(isValid){
-        console.log(`Adding user: ${firstName}`);
-        users.push({firstName});
+        console.log(`Adding user: ${firstName} ${lastName}`);
+        users.push({firstName, lastName, age, gender});
         res.render('users/list', {users});
     }
     else{
@@ -36,7 +39,7 @@ router.route('/:id').get((req, res)=>{
     res.send(`updating User data for id: ${req.params.id}`);
 });
 
-const users = [{firstName:"John"}, {firstName:"Jane"}];
+const users = [{firstName:"John", lastName:"Doe", age:21, gender:"Male"}, {firstName:"Jane", lastName:"Smith", age:31, gender:"Female"}];
 router.param("id", (req, res, next, id) =>{
     req.user = users[id];
     next();
