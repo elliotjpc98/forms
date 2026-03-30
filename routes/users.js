@@ -24,7 +24,7 @@ router.get('/list', (req, res)=>{
     res.render('users/list', {users});
 });
 router.get('/new', (req, res)=>{
-    res.render('users/new', {firstName: "Test"});
+    res.render('users/new');
 });
 //router.get('/:id', (req, res)=>{
 //    res.send(`Getting User Data: ${req.params.id}`);
@@ -32,7 +32,7 @@ router.get('/new', (req, res)=>{
 router.route('/:id').get((req, res)=>{
     console.log(req.user);
     console.log('Getting user data!');
-    res.send(`Getting User data for id: ${req.user['name']}`);
+    res.send(`Getting User data for id: ${req.user['firstName']}`);
 }).delete((req, res)=>{
     res.send(`Deleting User data for id: ${req.params.id}`);
 }).put((req, res)=>{
