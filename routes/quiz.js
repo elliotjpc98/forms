@@ -3,16 +3,39 @@ const router = express.Router();
 const {readFile} = require('fs').promises;
 //Work goes here
 
-router.get("/", (req, res) =>{
-    //Get 4 words, with their pos and def and send back to the other page
-
+router.get("/", async (req, res) =>{
+    //Get 5 words, with their pos and def and send back to the other page
+    let chosenWords = await getWords();
     //send those back and render quiz.ejs
+    console.log("Chosen words: ", chosenWords);
+    res.render('quiz', {chosenWords});
 });
 
 let getWords = async ()=>{
     //get a random part of speech
-    let randomPart = getRandomPart();
+
+    let randomPart = getRandomPart(); //i should have noun, verb, or adjective
     //based on that, pick 4 words that match
+
+    let allWords = await readFile('resources/allwords.txt', 'utf8'); //Reads allwords as 1 giant string
+    
+    
+    let wordArray = allWords.split('\n'); //splits the single strong into an array where each line is an index
+    shuffle(wordArray); //shuffle that array
+
+    let choices = [];
+    while(choices.length < 5){ //keep looping until we get 5 choice
+        let line = wordArray.pop(); //one line as a string
+        // let[word, part, def] = line.split('\t'); This is the same as the code below
+        let tokens = line.split('\t');
+        let word = tokens[0];
+        let part = tokens[1];
+        let def = tokens[2];
+        if(part === randomPart){ //If the part of my word matches the random part we picked, we keep it
+            choices.push(line);
+        }
+    }
+    return choices;
 
 }
 
@@ -24,11 +47,12 @@ let getRandomPart = ()=>{
 }
 let shuffle = (array)=>{
     //fisher Yates algorithm
-    for(let i = 0;i<array.length-1;i--)
+    for(let i = array.length-1;i >0; i--)
     {
         let randomNumber = Math.floor(Math.random()*(i+1));
         [array[i], array[randomNumber]]  = [array[randomNumber], array[i]];
     }
+
 }
 
 module.exports = router;
