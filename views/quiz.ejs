@@ -5,11 +5,17 @@
 </head>
 <body>
     <%
+        let questionCount = locals.totalQuestions ?? 0;
+        let score = locals.totalCorrect ?? 0;
         let randomIndex = parseInt(Math.random()*chosenWords.length); //generate a random index
         let chosenWord = chosenWords[randomIndex]; //pick that as our correct word
         let [correctWord, correctPart, correctDef] = chosenWord.split('\t'); //breaking it up into the 3 pieces
     %>
-    <h1>Word Quiz!</h1>
+    <% if (questionCount === 0) { %>
+        <h1>Welcome to the word quiz!</h1>
+    <% } else { %>
+        <h1>Score: <%= score %> / <% questionCount %></h1>
+    <% } %>
     <!--Show the word and part of speech-->
     <h2><%= correctWord %> - <%= correctPart %></h2>
     <form action="quiz" method="post"> <!--submits to quiz-->
@@ -27,6 +33,8 @@
     </ol>
     <input type="submit" value="Submit Answer!">
     <input type="hidden" name="correctDef" value="<%= correctDef %>">
+    <input type="hidden" name="totalQuestions" value="<%=questionCount %>">
+    <input type="hidden" name="totalCorrect" value="<%= score %>">
     </form>
 </body>
 </html>
