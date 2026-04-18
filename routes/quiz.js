@@ -10,17 +10,19 @@ router.get("/", async (req, res) =>{
     console.log("Chosen words: ", chosenWords);
     res.render('quiz', {chosenWords});
 });
-
+router.post("/", (req, res)=>{
+    console.log(req.body);
+});
 let getWords = async ()=>{
     //get a random part of speech
-
+    console.log("Getting random Part!");
     let randomPart = getRandomPart(); //i should have noun, verb, or adjective
     //based on that, pick 4 words that match
-
+    console.log("Random part: ",randomPart);
     let allWords = await readFile('resources/allwords.txt', 'utf8'); //Reads allwords as 1 giant string
-    
-    
+    // console.log(allWords);
     let wordArray = allWords.split('\n'); //splits the single strong into an array where each line is an index
+    // console.log(wordArray);
     shuffle(wordArray); //shuffle that array
 
     let choices = [];
