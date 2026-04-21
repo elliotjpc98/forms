@@ -19,6 +19,19 @@ router.post("/", (req, res)=>{
         let score = totalCorrect+1;
     }
     let total = totalQuestions+1;
+
+    let score = totalCorrect;
+    let answerResult = 'incorrect';
+    if(userChoice === correctDef) {
+        score = parseInt(totalCorrect)+1;
+        answerResult = 'correct';
+    }
+    let chosenWords = await getWords();
+    res.render('quiz', {chosenWords:chosenWords, totalQuestions: parseInt(totalQuestions)+1, 
+        totalCorrect: score, 
+        answerResult:answerResult,
+        lastcorrectDef: correctDef
+    })
     //Get another new set of words...how?
     //Send that set of words back with the user score and their total questions
     //Send some other data back?
