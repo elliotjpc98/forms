@@ -13,10 +13,10 @@ router.get("/", async (req, res) =>{
 router.post("/", async (req, res)=>{
     console.log(req.body);
     let {userChoice, correctDef, totalQuestions, totalCorrect} = req.body;
-    let score = totalCorrect
+    let score = parseInt(totalCorrect);
     let answerResult = 'incorrect'
     if(userChoice === correctDef) {
-        score = totalCorrect+1;
+        score = score+1;
         answerResult = 'correct';
     }
     let chosenWords = await getWords();
@@ -25,7 +25,7 @@ router.post("/", async (req, res)=>{
         totalQuestions: parseInt(totalQuestions)+1, 
         totalCorrect: score, 
         answerResult:answerResult,
-        lastcorrectDef: correctDef
+        lastCorrectDef: correctDef
     });
     //Get another new set of words...how?
     //Send that set of words back with the user score and their total questions
