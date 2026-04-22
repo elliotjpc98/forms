@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>Document</title>
+    <style> .correct {color:green;} .incorrect {color:red;} </style>
 </head>
 <body>
     <%
@@ -10,11 +11,22 @@
         let randomIndex = parseInt(Math.random()*chosenWords.length); //generate a random index
         let chosenWord = chosenWords[randomIndex]; //pick that as our correct word
         let [correctWord, correctPart, correctDef] = chosenWord.split('\t'); //breaking it up into the 3 pieces
+        let isCorrect = locals.answerResult === 'correct';
     %>
     <% if (questionCount === 0) { %>
         <h1>Welcome to the word quiz!</h1>
     <% } else { %>
         <h1>Score: <%= score %> / <% questionCount %></h1>
+    <% } %>
+    <% if (locals.answerResult) { %>
+        <p>
+            <span class="<%= isCorrect ? 'correct' : 'incorrect' %>">
+                <%= isCorrect ? 'Correct' : 'Incorrect' %>
+            </span>
+        </p>
+        <% if (!isCorrect) { %>
+            <p>Correct Definition Is: <%= locals.lastCorrectDef %></p>
+        <% } %>
     <% } %>
     <!--Show the word and part of speech-->
     <h2><%= correctWord %> - <%= correctPart %></h2>
